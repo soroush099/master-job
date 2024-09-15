@@ -31,7 +31,7 @@ class Address(models.Model):
 
 
 class ContactInfo(models.Model):
-    title = models.CharField(max_length=300)
+    user_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="user")
     phone_number = models.CharField(max_length=13)
     address = models.ForeignKey(Address, on_delete=models.SET_NULL, blank=True, null=True)
     email_address = models.EmailField(blank=True, null=True)
@@ -45,5 +45,5 @@ class ContactInfo(models.Model):
         verbose_name_plural = "ContactInfos"
 
     def __str__(self):
-        return self.title
+        return self.user_id
 
