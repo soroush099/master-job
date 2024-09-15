@@ -18,8 +18,6 @@ class Resume(models.Model):
     description = models.TextField()
     address = models.ForeignKey(Address, on_delete=models.SET_NULL, blank=True, null=True, verbose_name="Address")
     contact_info_id = models.ForeignKey(ContactInfo, on_delete=models.CASCADE, verbose_name="Contact Info")
-    skills = models.ManyToManyField("Skills", on_delete=models.SET_NULL, blank=True, null=True,
-                                    verbose_name="Skills")
     certificate_and_projects = models.ManyToManyField("CertificateAndProjects", on_delete=models.SET_NULL,
                                                       blank=True, null=True, verbose_name="Certificate And Projects")
     created_date = models.DateTimeField(auto_now_add=True, verbose_name="Created Date")
@@ -57,7 +55,12 @@ class Education:
 
 
 class Skills:
-    pass
+    user_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="User")
+    resume = models.ManyToManyField(Resume, on_delete=models.SET_NULL, blank=True, null=True,
+                                    verbose_name="resume")
+    skill_text = models.CharField(max_length=400, verbose_name="Skill Text")
+    created_date = models.DateTimeField(auto_now_add=True, verbose_name="Created Date")
+    updated_date = models.DateTimeField(auto_now=True, verbose_name="Updated Date")
 
 
 class CertificateAndProjects:
