@@ -18,8 +18,6 @@ class Resume(models.Model):
     description = models.TextField()
     address = models.ForeignKey(Address, on_delete=models.SET_NULL, blank=True, null=True, verbose_name="Address")
     contact_info_id = models.ForeignKey(ContactInfo, on_delete=models.CASCADE, verbose_name="Contact Info")
-    education = models.ManyToManyField("Education", on_delete=models.SET_NULL, blank=True, null=True,
-                                       verbose_name="Education")
     skills = models.ManyToManyField("Skills", on_delete=models.SET_NULL, blank=True, null=True,
                                     verbose_name="Skills")
     certificate_and_projects = models.ManyToManyField("CertificateAndProjects", on_delete=models.SET_NULL,
@@ -44,7 +42,18 @@ class WorkExperience:
 
 
 class Education:
-    pass
+    user_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="User")
+    education = models.ManyToManyField("Education", on_delete=models.SET_NULL, blank=True, null=True,
+                                       verbose_name="Education")
+    educational_qualifications = models.CharField(max_length=500, verbose_name="Educational Qualifications")
+    academic_discipline = models.CharField(max_length=500, verbose_name="Academic Discipline")
+    university = models.CharField(max_length=500, verbose_name="University")
+    university_location = models.CharField(max_length=500, verbose_name="University Location")
+    start_date = models.DateTimeField(verbose_name="Start Date")
+    end_date = models.DateTimeField(verbose_name="End Date", blank=True, null=True)
+    descriptions = models.TextField(verbose_name="Description", blank=True, null=True)
+    created_date = models.DateTimeField(auto_now_add=True, verbose_name="Created Date")
+    updated_date = models.DateTimeField(auto_now=True, verbose_name="Updated Date")
 
 
 class Skills:
