@@ -49,3 +49,5 @@ class JobInfo(models.Model):
     description = models.TextField(verbose_name="Description")
     job_certificate = models.FileField(verbose_name="Job Certificate")
     resume = models.ForeignKey(Resume, on_delete=models.SET_NULL, blank=True, null=True, verbose_name="Resume")
+    created_date = models.DateTimeField(auto_now_add=True, verbose_name="Created Date")
+    updated_date = models.DateTimeField(auto_now=True, verbose_name="Updated Date")
