@@ -29,7 +29,7 @@ class Resume(models.Model):
 class WorkExperience:
     user_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="User")
     resume = models.ManyToManyField(Resume, on_delete=models.SET_NULL, blank=True, null=True,
-                                             verbose_name="Work Experience")
+                                    verbose_name="Resume")
     job_title = models.CharField(max_length=400, verbose_name="Job Title")
     company_name = models.CharField(max_length=400, verbose_name="Company Name")
     start_date = models.DateTimeField(verbose_name="Start Date")
@@ -43,8 +43,8 @@ class WorkExperience:
 
 class Education:
     user_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="User")
-    education = models.ManyToManyField("Education", on_delete=models.SET_NULL, blank=True, null=True,
-                                       verbose_name="Education")
+    resume = models.ManyToManyField("Education", on_delete=models.SET_NULL, blank=True, null=True,
+                                    verbose_name="Resume")
     educational_qualifications = models.CharField(max_length=500, verbose_name="Educational Qualifications")
     academic_discipline = models.CharField(max_length=500, verbose_name="Academic Discipline")
     university = models.CharField(max_length=500, verbose_name="University")
