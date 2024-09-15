@@ -23,3 +23,22 @@ class Address(models.Model):
 
     def __str__(self):
         return f"{self.country},{self.state},{self.city}"
+
+
+class ContactInfo(models.Model):
+    title = models.CharField(max_length=300)
+    phone_number = models.CharField(max_length=13)
+    address = models.ForeignKey(Address, on_delete=models.SET_NULL, blank=True, null=True)
+    email_address = models.EmailField(blank=True, null=True)
+    instagram_account = models.CharField(max_length=300, blank=True, null=True)
+    telegram_account = models.CharField(max_length=300, blank=True, null=True)
+    linkedin_account = models.CharField(max_length=300, blank=True, null=True)
+    website_url = models.CharField(max_length=300, blank=True, null=True)
+
+    class Meta:
+        verbose_name = "ContactInfo"
+        verbose_name_plural = "ContactInfos"
+
+    def __str__(self):
+        return self.title
+
