@@ -39,6 +39,8 @@ class WorkExperience:
     responsibilities = models.TextField(verbose_name="Responsibilities", blank=True, null=True)
     achievements = models.TextField(verbose_name="Achievements", blank=True, null=True)
     descriptions = models.TextField(verbose_name="Description", blank=True, null=True)
+    created_date = models.DateTimeField(auto_now_add=True, verbose_name="Created Date")
+    updated_date = models.DateTimeField(auto_now=True, verbose_name="Updated Date")
 
 
 class Education:
