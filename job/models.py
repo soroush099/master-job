@@ -30,7 +30,7 @@ class Resume(models.Model):
 
 class WorkExperience:
     user_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="User")
-    work_experience = models.ManyToManyField(Resume, on_delete=models.SET_NULL, blank=True, null=True,
+    resume = models.ManyToManyField(Resume, on_delete=models.SET_NULL, blank=True, null=True,
                                              verbose_name="Work Experience")
     job_title = models.CharField(max_length=400, verbose_name="Job Title")
     company_name = models.CharField(max_length=400, verbose_name="Company Name")
