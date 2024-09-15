@@ -21,6 +21,8 @@ class Address(models.Model):
     unit = models.CharField(max_length=255, verbose_name="unit")
     zip_code = models.CharField(max_length=100, verbose_name="zip_code")
     description = models.CharField(max_length=400, verbose_name="description")
+    created_date = models.DateTimeField(auto_now_add=True, verbose_name="Created Date")
+    updated_date = models.DateTimeField(auto_now=True, verbose_name="Updated Date")
 
     class Meta:
         verbose_name = "Address"
@@ -39,6 +41,8 @@ class ContactInfo(models.Model):
     telegram_account = models.CharField(max_length=300, blank=True, null=True)
     linkedin_account = models.CharField(max_length=300, blank=True, null=True)
     website_url = models.CharField(max_length=300, blank=True, null=True)
+    created_date = models.DateTimeField(auto_now_add=True, verbose_name="Created Date")
+    updated_date = models.DateTimeField(auto_now=True, verbose_name="Updated Date")
 
     class Meta:
         verbose_name = "ContactInfo"
