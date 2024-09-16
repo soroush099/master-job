@@ -18,8 +18,6 @@ class Resume(models.Model):
     description = models.TextField()
     address = models.ForeignKey(Address, on_delete=models.SET_NULL, blank=True, null=True, verbose_name="Address")
     contact_info_id = models.ForeignKey(ContactInfo, on_delete=models.CASCADE, verbose_name="Contact Info")
-    certificate_and_projects = models.ManyToManyField("CertificateAndProjects", on_delete=models.SET_NULL,
-                                                      blank=True, null=True, verbose_name="Certificate And Projects")
     created_date = models.DateTimeField(auto_now_add=True, verbose_name="Created Date")
     updated_date = models.DateTimeField(auto_now=True, verbose_name="Updated Date")
 
@@ -56,15 +54,21 @@ class Education:
 
 class Skills:
     user_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="User")
-    resume = models.ManyToManyField(Resume, on_delete=models.SET_NULL, blank=True, null=True,
-                                    verbose_name="resume")
+    resume = models.ManyToManyField(Resume, on_delete=models.SET_NULL, blank=True, null=True, verbose_name="resume")
     skill_text = models.CharField(max_length=400, verbose_name="Skill Text")
     created_date = models.DateTimeField(auto_now_add=True, verbose_name="Created Date")
     updated_date = models.DateTimeField(auto_now=True, verbose_name="Updated Date")
 
 
 class CertificateAndProjects:
-    pass
+    user_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="User")
+    resume = models.ManyToManyField(Resume, on_delete=models.SET_NULL, blank=True, null=True, verbose_name="Resume")
+    name = models.CharField(max_length=500, verbose_name="Name")
+    description = models.TextField(verbose_name="Description")
+    start_date = models.DateTimeField(verbose_name="Start Date")
+    end_date = models.DateTimeField(verbose_name="End Date", blank=True, null=True)
+    created_date = models.DateTimeField(auto_now_add=True, verbose_name="Created Date")
+    updated_date = models.DateTimeField(auto_now=True, verbose_name="Updated Date")
 
 
 class JobInfo(models.Model):
