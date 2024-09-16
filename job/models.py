@@ -29,7 +29,7 @@ class Resume(models.Model):
         return self.job_title
 
 
-class WorkExperience:
+class WorkExperience(models.Model):
     user_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="User")
     resume = models.ManyToManyField(Resume, on_delete=models.SET_NULL, blank=True, null=True,
                                     verbose_name="Resume")
@@ -51,7 +51,7 @@ class WorkExperience:
         return self.job_title
 
 
-class Education:
+class Education(models.Model):
     user_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="User")
     resume = models.ManyToManyField("Education", on_delete=models.SET_NULL, blank=True, null=True,
                                     verbose_name="Resume")
@@ -73,7 +73,7 @@ class Education:
         return self.educational_qualifications
 
 
-class Skill:
+class Skill(models.Model):
     user_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="User")
     resume = models.ManyToManyField(Resume, on_delete=models.SET_NULL, blank=True, null=True, verbose_name="resume")
     skill_text = models.CharField(max_length=400, verbose_name="Skill Text")
@@ -88,7 +88,7 @@ class Skill:
         return self.skill_text
 
 
-class CertificateAndProject:
+class CertificateAndProject(models.Model):
     user_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="User")
     resume = models.ManyToManyField(Resume, on_delete=models.SET_NULL, blank=True, null=True, verbose_name="Resume")
     title = models.CharField(max_length=500, verbose_name="Name")
