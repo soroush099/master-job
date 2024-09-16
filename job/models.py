@@ -21,6 +21,13 @@ class Resume(models.Model):
     created_date = models.DateTimeField(auto_now_add=True, verbose_name="Created Date")
     updated_date = models.DateTimeField(auto_now=True, verbose_name="Updated Date")
 
+    class Meta:
+        verbose_name = "Resume"
+        verbose_name_plural = "Resumes"
+
+    def __str__(self):
+        return self.job_title
+
 
 class WorkExperience:
     user_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="User")
@@ -35,6 +42,13 @@ class WorkExperience:
     descriptions = models.TextField(verbose_name="Description", blank=True, null=True)
     created_date = models.DateTimeField(auto_now_add=True, verbose_name="Created Date")
     updated_date = models.DateTimeField(auto_now=True, verbose_name="Updated Date")
+
+    class Meta:
+        verbose_name = "WorkExperience"
+        verbose_name_plural = "WorkExperiences"
+
+    def __str__(self):
+        return self.job_title
 
 
 class Education:
@@ -51,6 +65,13 @@ class Education:
     created_date = models.DateTimeField(auto_now_add=True, verbose_name="Created Date")
     updated_date = models.DateTimeField(auto_now=True, verbose_name="Updated Date")
 
+    class Meta:
+        verbose_name = "Education"
+        verbose_name_plural = "Educations"
+
+    def __str__(self):
+        return self.educational_qualifications
+
 
 class Skill:
     user_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="User")
@@ -59,16 +80,30 @@ class Skill:
     created_date = models.DateTimeField(auto_now_add=True, verbose_name="Created Date")
     updated_date = models.DateTimeField(auto_now=True, verbose_name="Updated Date")
 
+    class Meta:
+        verbose_name = "Skill"
+        verbose_name_plural = "Skills"
+
+    def __str__(self):
+        return self.skill_text
+
 
 class CertificateAndProject:
     user_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="User")
     resume = models.ManyToManyField(Resume, on_delete=models.SET_NULL, blank=True, null=True, verbose_name="Resume")
-    name = models.CharField(max_length=500, verbose_name="Name")
+    title = models.CharField(max_length=500, verbose_name="Name")
     description = models.TextField(verbose_name="Description")
     start_date = models.DateTimeField(verbose_name="Start Date")
     end_date = models.DateTimeField(verbose_name="End Date", blank=True, null=True)
     created_date = models.DateTimeField(auto_now_add=True, verbose_name="Created Date")
     updated_date = models.DateTimeField(auto_now=True, verbose_name="Updated Date")
+
+    class Meta:
+        verbose_name = "CertificateAndProject"
+        verbose_name_plural = "CertificatesAndProjects"
+
+    def __str__(self):
+        return self.title
 
 
 class JobInfo(models.Model):
@@ -80,3 +115,10 @@ class JobInfo(models.Model):
     resume = models.ForeignKey(Resume, on_delete=models.SET_NULL, blank=True, null=True, verbose_name="Resume")
     created_date = models.DateTimeField(auto_now_add=True, verbose_name="Created Date")
     updated_date = models.DateTimeField(auto_now=True, verbose_name="Updated Date")
+
+    class Meta:
+        verbose_name = "JobInfo"
+        verbose_name_plural = "JobInfo"
+
+    def __str__(self):
+        return self.job_title
