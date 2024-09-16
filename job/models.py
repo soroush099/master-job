@@ -52,7 +52,7 @@ class Education:
     updated_date = models.DateTimeField(auto_now=True, verbose_name="Updated Date")
 
 
-class Skills:
+class Skill:
     user_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="User")
     resume = models.ManyToManyField(Resume, on_delete=models.SET_NULL, blank=True, null=True, verbose_name="resume")
     skill_text = models.CharField(max_length=400, verbose_name="Skill Text")
@@ -60,7 +60,7 @@ class Skills:
     updated_date = models.DateTimeField(auto_now=True, verbose_name="Updated Date")
 
 
-class CertificateAndProjects:
+class CertificateAndProject:
     user_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="User")
     resume = models.ManyToManyField(Resume, on_delete=models.SET_NULL, blank=True, null=True, verbose_name="Resume")
     name = models.CharField(max_length=500, verbose_name="Name")
