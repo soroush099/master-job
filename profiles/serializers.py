@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from profiles.models import CustomUser
+from profiles.models import *
 
 
 class CustomUserSerializer(serializers.ModelSerializer):
@@ -18,3 +18,12 @@ class PutUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
         fields = ("id", "username", "first_name", "last_name", "email")
+
+
+class AddressSerializer(serializers.ModelSerializer):
+    user_id = serializers.HiddenField(default='user_id')
+
+    class Meta:
+        model = Address
+        exclude = ("created_date", "updated_date")
+

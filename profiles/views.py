@@ -1,12 +1,12 @@
 from django.contrib.auth import authenticate
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404
 from rest_framework import permissions, status
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from profiles.models import CustomUser
-from profiles.serializers import CustomUserSerializer, PutUserSerializer
+from profiles.models import *
+from profiles.serializers import CustomUserSerializer, PutUserSerializer, AddressSerializer
 
 
 # Create your views here.
@@ -62,3 +62,33 @@ class LoginProfileView(APIView):
         else:
             return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
 
+
+class AddressView(APIView):
+    def get(self, request):
+        user = request.user
+        query = Address.objects.filter(user_id=user.id)
+        serializers = AddressSerializer(query, many=True)
+        return Response(serializers.data)
+
+    def post(self, request):
+        user = request.user
+        serializer = AddressSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.validated_data['user_id'] = user
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors)
+
+    def put(self, request):
+        user = request.user
+        a_id = request.data.get('id')
+        # query = Address.objects.filter(user_id=user.id).get(pk=a_id)
+        query = get_object_or_404(Address, user_id=user.id, pk=a_id)
+        serializer = AddressSerializer(query, data=request.data)
+        if serializer.is_valid():
+            serializer.save(user_id=user)
+            return Response(serializer.data)
+        return Response(serializer.errors)
+
+    def delete(self, request):
+        pass
