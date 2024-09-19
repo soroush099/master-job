@@ -6,7 +6,11 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from profiles.models import *
-from profiles.serializers import CustomUserSerializer, PutUserSerializer, AddressSerializer
+from profiles.serializers import (CustomUserSerializer,
+                                  PutUserSerializer,
+                                  AddressSerializer,
+                                  GetContactInfoSerializer,
+                                  CreateContactInfoSerializer)
 
 
 # Create your views here.
@@ -88,6 +92,43 @@ class AddressView(APIView):
         if serializer.is_valid():
             serializer.save(user_id=user)
             return Response(serializer.data)
+        return Response(serializer.errors)
+
+    def delete(self, request):
+        pass
+
+
+class ContactInfoView(APIView):
+    def get(self, request):
+        user = request.user
+        query = ContactInfo.objects.filter(user_id=user.id)
+        serializer = GetContactInfoSerializer(query, many=True)
+        return Response(serializer.data)
+
+    def post(self, request):
+        user = request.user
+        query = Address.objects.filter(user_id=user.id).values_list('id', flat=True)
+        serializer = CreateContactInfoSerializer(data=request.data)
+        if serializer.is_valid():
+            if request.data.get('address') in query:
+                serializer.save(user_id=user)
+                return Response(serializer.data)
+            else:
+                return Response({"detail": "The address is not correct!"}, status=status.HTTP_404_NOT_FOUND)
+        return Response(serializer.errors)
+
+    def put(self, request):
+        user = request.user
+        contact_id = request.data.get('id')
+        query = get_object_or_404(ContactInfo, user_id=user.id, pk=contact_id)
+        query_address_id = Address.objects.filter(user_id=user.id).values_list('id', flat=True)
+        serializer = CreateContactInfoSerializer(query, data=request.data)
+        if serializer.is_valid():
+            if request.data.get('address') in query_address_id:
+                serializer.save(user_id=user)
+                return Response(serializer.data)
+            else:
+                return Response({"detail": "The address is not correct!"}, status=status.HTTP_404_NOT_FOUND)
         return Response(serializer.errors)
 
     def delete(self, request):

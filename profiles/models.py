@@ -6,7 +6,9 @@ from django.db import models
 
 
 class CustomUser(AbstractUser):
-    pass
+
+    def __str__(self):
+        return f'{self.username}'
 
 
 class Address(models.Model):
@@ -49,5 +51,5 @@ class ContactInfo(models.Model):
         verbose_name_plural = "ContactInfos"
 
     def __str__(self):
-        return self.user_id
+        return self.email_address
 
