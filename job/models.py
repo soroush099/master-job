@@ -18,6 +18,11 @@ class Resume(models.Model):
     description = models.TextField()
     address = models.ForeignKey(Address, on_delete=models.SET_NULL, blank=True, null=True, verbose_name="Address")
     contact_info_id = models.ForeignKey(ContactInfo, on_delete=models.CASCADE, verbose_name="Contact Info")
+    work_experience = models.ManyToManyField("WorkExperience", blank=True, verbose_name="WorkExperience")
+    education = models.ManyToManyField("Education", blank=True, verbose_name="Education")
+    skill = models.ManyToManyField("Skill", blank=True, verbose_name="Skill")
+    certificate_and_project = models.ManyToManyField("CertificateAndProject", blank=True,
+                                                     verbose_name="CertificateAndProject")
     created_date = models.DateTimeField(auto_now_add=True, verbose_name="Created Date")
     updated_date = models.DateTimeField(auto_now=True, verbose_name="Updated Date")
 
@@ -31,7 +36,6 @@ class Resume(models.Model):
 
 class WorkExperience(models.Model):
     user_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="User")
-    resume = models.ManyToManyField(Resume, blank=True, verbose_name="Resume")
     job_title = models.CharField(max_length=400, verbose_name="Job Title")
     company_name = models.CharField(max_length=400, verbose_name="Company Name")
     start_date = models.DateTimeField(verbose_name="Start Date")
@@ -52,7 +56,6 @@ class WorkExperience(models.Model):
 
 class Education(models.Model):
     user_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="User")
-    resume = models.ManyToManyField("Education", blank=True, verbose_name="Resume")
     educational_qualifications = models.CharField(max_length=500, verbose_name="Educational Qualifications")
     academic_discipline = models.CharField(max_length=500, verbose_name="Academic Discipline")
     university = models.CharField(max_length=500, verbose_name="University")
@@ -73,7 +76,6 @@ class Education(models.Model):
 
 class Skill(models.Model):
     user_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="User")
-    resume = models.ManyToManyField(Resume, blank=True, verbose_name="resume")
     skill_text = models.CharField(max_length=400, verbose_name="Skill Text")
     created_date = models.DateTimeField(auto_now_add=True, verbose_name="Created Date")
     updated_date = models.DateTimeField(auto_now=True, verbose_name="Updated Date")
@@ -88,7 +90,6 @@ class Skill(models.Model):
 
 class CertificateAndProject(models.Model):
     user_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="User")
-    resume = models.ManyToManyField(Resume, blank=True, verbose_name="Resume")
     title = models.CharField(max_length=500, verbose_name="Name")
     description = models.TextField(verbose_name="Description")
     start_date = models.DateTimeField(verbose_name="Start Date")
