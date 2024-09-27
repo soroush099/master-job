@@ -25,3 +25,11 @@ class WorkExperienceSerializer(serializers.ModelSerializer):
     class Meta:
         model = WorkExperience
         exclude = ("created_date", "updated_date")
+
+
+class EducationSerializer(serializers.ModelSerializer):
+    user_id = serializers.HiddenField(default='user_id')
+
+    class Meta:
+        model = Education
+        exclude = ("created_date", "updated_date")
