@@ -41,3 +41,11 @@ class CertificateAndProjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = CertificateAndProject
         exclude = ("created_date", "updated_date")
+
+
+class JobInfoSerializer(serializers.ModelSerializer):
+    user_id = serializers.HiddenField(default='user_id')
+
+    class Meta:
+        model = JobInfo
+        exclude = ("created_date", "updated_date")
