@@ -1,6 +1,8 @@
 from django.urls import path
 
-from job.views import *
+from job.views_d.resume_views import *
+from job.views_d.job_info_views import *
+
 
 urlpatterns = [
     path("resume/", ResumeView.as_view()),
