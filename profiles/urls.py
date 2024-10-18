@@ -1,6 +1,9 @@
 from django.urls import path
 
-from profiles.views import *
+
+from profiles.views.contact_info_views import AddressView, ContactInfoView
+from profiles.views.create_login_views import CreateUserView, LoginProfileView
+from profiles.views.profile_view import ProfileView
 
 urlpatterns = [
     path("register/", CreateUserView.as_view()),
