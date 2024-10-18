@@ -1,7 +1,7 @@
 from django.urls import path
 
-from job.views_d.resume_views import *
-from job.views_d.job_info_views import *
+from job.views.resume_views import *
+from job.views.job_info_views import *
 
 
 urlpatterns = [
