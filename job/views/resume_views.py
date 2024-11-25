@@ -36,7 +36,7 @@ class ResumeView(APIView):
     def delete(self, request):
         pass
 
-
+    
 class WorkExperienceView(APIView):
     def get(self, request):
         user = request.user
