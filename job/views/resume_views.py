@@ -5,14 +5,12 @@ from rest_framework.views import APIView
 from job.models import Resume, WorkExperience, Education, CertificateAndProject
 from job.serializers import ResumeSerializer, WorkExperienceSerializer, EducationSerializer, \
     CertificateAndProjectSerializer
+from packages.querys import get_query_by_user_id
 
 
 class ResumeView(APIView):
     def get(self, request):
-        user = request.user
-        query = Resume.objects.filter(user_id=user.id)
-        serializer = ResumeSerializer(query, many=True)
-        return Response(serializer.data)
+        return Response(get_query_by_user_id(request, ResumeSerializer, Resume, many_bool=True))
 
     def post(self, request):
         user = request.user
@@ -39,10 +37,7 @@ class ResumeView(APIView):
     
 class WorkExperienceView(APIView):
     def get(self, request):
-        user = request.user
-        query = WorkExperience.objects.filter(user_id=user.id)
-        serializer = WorkExperienceSerializer(query, many=True)
-        return Response(serializer.data)
+        return Response(get_query_by_user_id(request, WorkExperienceSerializer, WorkExperience, many_bool=True))
 
     def post(self, request):
         user = request.user
@@ -69,10 +64,7 @@ class WorkExperienceView(APIView):
 
 class EducationView(APIView):
     def get(self, request):
-        user = request.user
-        query = Education.objects.filter(user_id=user.id)
-        serializer = EducationSerializer(query, many=True)
-        return Response(serializer.data)
+        return Response(get_query_by_user_id(request, EducationSerializer, Education, many_bool=True))
 
     def post(self, request):
         user = request.user
@@ -99,10 +91,8 @@ class EducationView(APIView):
 
 class CertificateAndProjectView(APIView):
     def get(self, request):
-        user = request.user
-        query = CertificateAndProject.objects.filter(user_id=user.id)
-        serializer = CertificateAndProjectSerializer(query, many=True)
-        return Response(serializer.data)
+        return Response(get_query_by_user_id(request, CertificateAndProjectSerializer, CertificateAndProject
+                                             , many_bool=True))
 
     def post(self, request):
         user = request.user

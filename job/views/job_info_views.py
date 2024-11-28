@@ -4,14 +4,12 @@ from rest_framework.views import APIView
 
 from job.models import JobInfo
 from job.serializers import JobInfoSerializer
+from packages.querys import get_query_by_user_id
 
 
 class JobInfoView(APIView):
     def get(self, request):
-        user = request.user
-        query = JobInfo.objects.filter(user_id=user.id)
-        serializer = JobInfoSerializer(query, many=True)
-        return Response(serializer.data)
+        return Response(get_query_by_user_id(request, JobInfoSerializer, JobInfo, many_bool=True))
 
     def post(self, request):
         user = request.user

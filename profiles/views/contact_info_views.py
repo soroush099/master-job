@@ -3,16 +3,14 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from packages.querys import get_query_by_user_id
 from profiles.models import Address, ContactInfo
 from profiles.serializers import AddressSerializer, GetContactInfoSerializer, CreateContactInfoSerializer
 
 
 class AddressView(APIView):
     def get(self, request):
-        user = request.user
-        query = Address.objects.filter(user_id=user.id)
-        serializers = AddressSerializer(query, many=True)
-        return Response(serializers.data)
+        return Response(get_query_by_user_id(request, AddressSerializer, Address, many_bool=True))
 
     def post(self, request):
         user = request.user
@@ -40,10 +38,7 @@ class AddressView(APIView):
 
 class ContactInfoView(APIView):
     def get(self, request):
-        user = request.user
-        query = ContactInfo.objects.filter(user_id=user.id)
-        serializer = GetContactInfoSerializer(query, many=True)
-        return Response(serializer.data)
+        return Response(get_query_by_user_id(request, GetContactInfoSerializer, ContactInfo, many_bool=True))
 
     def post(self, request):
         user = request.user

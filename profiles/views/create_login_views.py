@@ -13,15 +13,9 @@ class CreateUserView(APIView):
     def post(self, request):
         serializer = CustomUserSerializer(data=request.data)
         if serializer.is_valid():
-            user = serializer.save()
-            token, created = Token.objects.get_or_create(user=user)
-            response_data = {
-                'user_id': user.id,
-                'username': user.username,
-                'email': user.email,
-                'token': token.key,
-            }
-            return Response(response_data, status=status.HTTP_201_CREATED)
+            serializer.save()
+
+            return Response({"status": "successful"}, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
