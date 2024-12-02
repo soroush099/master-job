@@ -17,14 +17,7 @@ class ResumeView(APIView):
         return Response(post_insert_and_change_user_id(request, ResumeSerializer))
 
     def put(self, request):
-        user = request.user
-        a_id = request.data.get('id')
-        query = get_object_or_404(Resume, user_id=user.id, pk=a_id)
-        serializer = ResumeSerializer(query, data=request.data)
-        if serializer.is_valid():
-            serializer.save(user_id=user)
-            return Response(serializer.data)
-        return Response(serializer.errors)
+        return Response(put_insert_and_change_user_id(request, Resume, ResumeSerializer))
 
     def delete(self, request):
         pass
@@ -38,14 +31,7 @@ class WorkExperienceView(APIView):
         return Response(post_insert_and_change_user_id(request, WorkExperienceSerializer))
 
     def put(self, request):
-        user = request.user
-        a_id = request.data.get('id')
-        query = get_object_or_404(WorkExperience, user_id=user.id, pk=a_id)
-        serializer = WorkExperienceSerializer(query, data=request.data)
-        if serializer.is_valid():
-            serializer.save(user_id=user)
-            return Response(serializer.data)
-        return Response(serializer.errors)
+        return Response(put_insert_and_change_user_id(request, WorkExperience, WorkExperienceSerializer))
 
     def delete(self, request):
         pass
@@ -59,14 +45,7 @@ class EducationView(APIView):
         return Response(post_insert_and_change_user_id(request, EducationSerializer))
 
     def put(self, request):
-        user = request.user
-        a_id = request.data.get('id')
-        query = get_object_or_404(Education, user_id=user.id, pk=a_id)
-        serializer = EducationSerializer(query, data=request.data)
-        if serializer.is_valid():
-            serializer.save(user_id=user)
-            return Response(serializer.data)
-        return Response(serializer.errors)
+        return Response(put_insert_and_change_user_id(request, Education, EducationSerializer))
 
     def delete(self, request):
         pass
