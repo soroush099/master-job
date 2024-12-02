@@ -5,7 +5,7 @@ from rest_framework.views import APIView
 from job.models import Resume, WorkExperience, Education, CertificateAndProject
 from job.serializers import ResumeSerializer, WorkExperienceSerializer, EducationSerializer, \
     CertificateAndProjectSerializer
-from packages.inserts import post_insert_and_change_user_id
+from packages.inserts import post_insert_and_change_user_id, put_insert_and_change_user_id
 from packages.querys import get_query_by_user_id
 
 
@@ -81,14 +81,7 @@ class CertificateAndProjectView(APIView):
         return Response(post_insert_and_change_user_id(request, CertificateAndProjectSerializer))
 
     def put(self, request):
-        user = request.user
-        a_id = request.data.get('id')
-        query = get_object_or_404(CertificateAndProject, user_id=user.id, pk=a_id)
-        serializer = CertificateAndProjectSerializer(query, data=request.data)
-        if serializer.is_valid():
-            serializer.save(user_id=user)
-            return Response(serializer.data)
-        return Response(serializer.errors)
+        return Response(put_insert_and_change_user_id(request, CertificateAndProject, CertificateAndProjectSerializer))
 
     def delete(self, request):
         pass
