@@ -4,6 +4,7 @@ from rest_framework.views import APIView
 
 from job.models import JobInfo
 from job.serializers import JobInfoSerializer
+from packages.inserts import post_insert_and_change_user_id
 from packages.querys import get_query_by_user_id
 
 
@@ -12,13 +13,7 @@ class JobInfoView(APIView):
         return Response(get_query_by_user_id(request, JobInfoSerializer, JobInfo, many_bool=True))
 
     def post(self, request):
-        user = request.user
-        serializer = JobInfoSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.validated_data['user_id'] = user
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors)
+        return Response(post_insert_and_change_user_id(request, JobInfoSerializer))
 
     def put(self, request):
         user = request.user

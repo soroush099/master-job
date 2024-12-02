@@ -2,7 +2,7 @@ from django.urls import path
 
 
 from profiles.views.contact_info_views import AddressView, ContactInfoView
-from profiles.views.create_login_views import CreateUserView, LoginProfileView
+from profiles.views.register_login_profile_views import CreateUserView, LoginProfileView
 from profiles.views.profile_view import ProfileView
 
 urlpatterns = [
