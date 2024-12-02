@@ -8,7 +8,7 @@ from job.models import *
 
 @admin.register(Resume)
 class ResumeAdmin(admin.ModelAdmin):
-    pass
+    list_display = ("id", "job_title", "user_id")
 
 
 @admin.register(WorkExperience)
