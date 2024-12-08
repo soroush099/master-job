@@ -5,7 +5,7 @@ from rest_framework.views import APIView
 from job.models import Resume, WorkExperience, Education, CertificateAndProject
 from job.serializers import ResumeSerializer, WorkExperienceSerializer, EducationSerializer, \
     CertificateAndProjectSerializer
-from packages.inserts import post_insert_and_change_user_id, put_insert_and_change_user_id
+from packages.inserts import post_insert, put_insert
 from packages.querys import get_query_by_user_id
 
 
@@ -14,10 +14,10 @@ class ResumeView(APIView):
         return Response(get_query_by_user_id(request, ResumeSerializer, Resume, many_bool=True))
 
     def post(self, request):
-        return Response(post_insert_and_change_user_id(request, ResumeSerializer))
+        return Response(post_insert(request, ResumeSerializer))
 
     def put(self, request):
-        return Response(put_insert_and_change_user_id(request, Resume, ResumeSerializer))
+        return Response(put_insert(request, Resume, ResumeSerializer))
 
     def delete(self, request):
         pass
@@ -28,10 +28,10 @@ class WorkExperienceView(APIView):
         return Response(get_query_by_user_id(request, WorkExperienceSerializer, WorkExperience, many_bool=True))
 
     def post(self, request):
-        return Response(post_insert_and_change_user_id(request, WorkExperienceSerializer))
+        return Response(post_insert(request, WorkExperienceSerializer))
 
     def put(self, request):
-        return Response(put_insert_and_change_user_id(request, WorkExperience, WorkExperienceSerializer))
+        return Response(put_insert(request, WorkExperience, WorkExperienceSerializer))
 
     def delete(self, request):
         pass
@@ -42,10 +42,10 @@ class EducationView(APIView):
         return Response(get_query_by_user_id(request, EducationSerializer, Education, many_bool=True))
 
     def post(self, request):
-        return Response(post_insert_and_change_user_id(request, EducationSerializer))
+        return Response(post_insert(request, EducationSerializer))
 
     def put(self, request):
-        return Response(put_insert_and_change_user_id(request, Education, EducationSerializer))
+        return Response(put_insert(request, Education, EducationSerializer))
 
     def delete(self, request):
         pass
@@ -57,10 +57,10 @@ class CertificateAndProjectView(APIView):
                                              , many_bool=True))
 
     def post(self, request):
-        return Response(post_insert_and_change_user_id(request, CertificateAndProjectSerializer))
+        return Response(post_insert(request, CertificateAndProjectSerializer))
 
     def put(self, request):
-        return Response(put_insert_and_change_user_id(request, CertificateAndProject, CertificateAndProjectSerializer))
+        return Response(put_insert(request, CertificateAndProject, CertificateAndProjectSerializer))
 
     def delete(self, request):
         pass

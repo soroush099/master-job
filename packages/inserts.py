@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404
 
 
-def post_insert_and_change_user_id(request, serializer_name, ):
+def post_insert(request, serializer_name, ):
     user = request.user
     serializer = serializer_name(data=request.data)
     if serializer.is_valid():
@@ -11,7 +11,7 @@ def post_insert_and_change_user_id(request, serializer_name, ):
     return serializer.errors
 
 
-def put_insert_and_change_user_id(request, model_name, serializer_name):
+def put_insert(request, model_name, serializer_name):
     user = request.user
     a_id = request.data.get('id')
     query = get_object_or_404(model_name, user_id=user.id, pk=a_id)
