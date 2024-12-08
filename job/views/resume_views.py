@@ -1,9 +1,9 @@
-from job.models import Resume, WorkExperience, Education, CertificateAndProject
+from job.models import Resume, WorkExperience, Education, CertificateAndProject, Skill
 from packages.custom_class_views import GetPostPutDeleteAPIView
 from job.serializers import (ResumeSerializer,
                              WorkExperienceSerializer,
                              EducationSerializer,
-                             CertificateAndProjectSerializer)
+                             CertificateAndProjectSerializer, SkillSerializer)
 
 
 class ResumeView(GetPostPutDeleteAPIView):
@@ -24,3 +24,8 @@ class EducationView(GetPostPutDeleteAPIView):
 class CertificateAndProjectView(GetPostPutDeleteAPIView):
     model = CertificateAndProject
     serializer = CertificateAndProjectSerializer
+
+
+class SkillView(GetPostPutDeleteAPIView):
+    model = Skill
+    serializer = SkillSerializer

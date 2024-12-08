@@ -9,5 +9,6 @@ urlpatterns = [
     path("resume/workexperience/", WorkExperienceView.as_view()),
     path("resume/education/", EducationView.as_view()),
     path("resume/certificateproject/", CertificateAndProjectView.as_view()),
+    path("resume/skill/", SkillView.as_view()),
     path("info/", JobInfoView.as_view()),
 ]
