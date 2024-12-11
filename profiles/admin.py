@@ -19,3 +19,33 @@ class AddressAdmin(admin.ModelAdmin):
 @admin.register(ContactInfo)
 class ContactInfoAdmin(admin.ModelAdmin):
     pass
+
+
+@admin.register(Resume)
+class ResumeAdmin(admin.ModelAdmin):
+    list_display = ("id", "job_title", "user_id")
+
+
+@admin.register(WorkExperience)
+class WorkExperienceAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(Education)
+class EducationAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(Skill)
+class SkillAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(CertificateAndProject)
+class CertificateAndProjectAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(MyJobInfo)
+class JobInfoAdmin(admin.ModelAdmin):
+    pass
