@@ -1,5 +1,5 @@
 from django.urls import path
-
+from rest_framework import routers
 
 from profiles.views.contact_info_views import ContactsInfoView
 from profiles.views.my_job_info_views import MyJobInfoView
@@ -12,21 +12,20 @@ from profiles.views.resume_views import (ResumeView,
                                          SkillView,
                                          AddressView)
 
+
+router = routers.SimpleRouter()
+router.register("address", AddressView, basename="address")
+router.register("my-job-info", MyJobInfoView, basename="my-job-info")
+router.register("contactinfo", ContactsInfoView, basename="contactinfo")
+router.register("resume", ResumeView, basename="resume")
+router.register("resume-workexperience", WorkExperienceView, basename="workexperience")
+router.register("resume-education", EducationView, basename="education")
+router.register("resume-certificateproject", CertificateAndProjectView, basename="certificateproject")
+router.register("resume-skill", SkillView, basename="skill")
+
 urlpatterns = [
     path("register/", CreateUserView.as_view()),
     path("profile/", ProfileView.as_view()),
     path("login/", LoginProfileView.as_view()),
-
-    path("my-job-info/", MyJobInfoView.as_view()),
-
-    path("resume/", ResumeView.as_view()),
-    path("resume/workexperience/", WorkExperienceView.as_view()),
-    path("resume/education/", EducationView.as_view()),
-    path("resume/certificateproject/", CertificateAndProjectView.as_view()),
-    path("resume/skill/", SkillView.as_view()),
-
-    path("address/", AddressView.as_view()),
-
-    path("contactinfo/", ContactsInfoView.as_view()),
-
 ]
+urlpatterns += router.urls

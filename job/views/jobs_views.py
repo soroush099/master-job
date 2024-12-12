@@ -6,7 +6,7 @@ from job.models import RequestedJobInformation
 from job.serializers import RequestedJobInformationSerializer
 
 
-class JobsListView(viewsets.ViewSet):
+class JobsView(viewsets.ViewSet):
     permission_classes = (permissions.AllowAny,)
 
     def list(self, request):

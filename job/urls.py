@@ -1,11 +1,11 @@
 from django.urls import path
 from rest_framework import routers
 
-from job.views.jobs_list_views import *
+from job.views.jobs_views import *
 
 
 router = routers.SimpleRouter()
-router.register('', JobsListView, basename='jobs')
+router.register('', JobsView, basename='jobs')
 
 urlpatterns = [
 ]

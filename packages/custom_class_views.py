@@ -1,39 +1,53 @@
 from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
-from rest_framework.views import APIView
-from rest_framework import generics
+from rest_framework import viewsets
 
 
-class GetPostPutDeleteAPIView(APIView):
+class GetPostPutDeleteCustomView(viewsets.ViewSet):
     model = None
     serializer = None
-    post_put_serializer = serializer
-    many_bool = True
+    create_update_serializer = None
+    retrieve_serializer = None
 
-    def get(self, request):
+    def serializer_selection(self):
+        if self.create_update_serializer is None:
+            self.create_update_serializer = self.serializer
+        if self.retrieve_serializer is None:
+            self.retrieve_serializer = self.serializer
+
+    def list(self, request):
+        print(request)
         user = request.user
         query = self.model.objects.filter(user_id=user.id)
-        serializer = self.serializer(query, many=self.many_bool)
+        serializer = self.serializer(query, many=True)
         return Response(serializer.data)
 
-    def post(self, request):
+    def create(self, request):
+        self.serializer_selection()
         user = request.user
-        serializer = self.post_put_serializer(data=request.data)
+        serializer = self.create_update_serializer(data=request.data)
         if serializer.is_valid():
             serializer.validated_data['user_id'] = user
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors)
 
-    def put(self, request):
+    def retrieve(self, request, pk=None):
+        self.serializer_selection()
         user = request.user
-        a_id = request.data.get('id')
-        query = get_object_or_404(self.model, user_id=user.id, pk=a_id)
-        serializer = self.post_put_serializer(query, data=request.data)
+        query = get_object_or_404(self.model, user_id=user.id, pk=pk)
+        serializer = self.retrieve_serializer(query)
+        return Response(serializer.data)
+
+    def update(self, request, pk=None):
+        self.serializer_selection()
+        user = request.user
+        query = get_object_or_404(self.model, user_id=user.id, pk=pk)
+        serializer = self.create_update_serializer(query, data=request.data)
         if serializer.is_valid():
             serializer.save(user_id=user)
             return Response(serializer.data)
         return Response(serializer.errors)
 
-    def delete(self, request):
-        pass
+    # def destroy(self, request, pk=None):
+    #     pass
