@@ -11,7 +11,10 @@ class GetPostPutDeleteCustomView(viewsets.ViewSet):
 
     def serializer_selection(self):
         if self.create_update_serializer is None:
-            self.create_update_serializer = self.serializer
+            if self.retrieve_serializer is None:
+                self.create_update_serializer = self.serializer
+            else:
+                self.create_update_serializer = self.retrieve_serializer
         if self.retrieve_serializer is None:
             self.retrieve_serializer = self.serializer
 

@@ -135,7 +135,6 @@ class Resume(models.Model):
     marital_status = models.BooleanField(verbose_name="Marital Status", blank=True, null=True)
     job_title = models.CharField(max_length=400, verbose_name="Job Title")
     description = models.TextField()
-    address = models.ForeignKey(Address, on_delete=models.SET_NULL, blank=True, null=True, verbose_name="Address")
     contact_info_id = models.ForeignKey(ContactInfo, on_delete=models.CASCADE, verbose_name="Contact Info")
     work_experience = models.ManyToManyField(WorkExperience, blank=True, verbose_name="WorkExperience")
     education = models.ManyToManyField(Education, blank=True, verbose_name="Education")
