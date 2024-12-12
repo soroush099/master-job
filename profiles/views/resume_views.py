@@ -1,12 +1,8 @@
 from packages.custom_class_views import GetPostPutDeleteCustomView
 
 from profiles.models import (Resume, WorkExperience, Education, CertificateAndProject, Skill, Address)
-from profiles.serializers import (ResumeSerializer,
-                                  WorkExperienceSerializer,
-                                  EducationSerializer,
-                                  CertificateAndProjectSerializer,
-                                  SkillSerializer,
-                                  AddressSerializer)
+from profiles.serializers.resume_serializers import AddressSerializer, SkillSerializer, ResumeSerializer, \
+    WorkExperienceSerializer, EducationSerializer, CertificateAndProjectSerializer
 
 
 class ResumeView(GetPostPutDeleteCustomView):

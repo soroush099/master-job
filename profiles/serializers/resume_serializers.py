@@ -1,23 +1,6 @@
 from rest_framework import serializers
 
-from profiles.models import *
-
-
-class CustomUserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = CustomUser
-        fields = ("id", "username", "password", "first_name", "last_name", "email")
-        extra_kwargs = {'password': {'write_only': True}}
-
-    def create(self, validated_data):
-        user = CustomUser.objects.create_user(**validated_data)
-        return user
-
-
-class PutUserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = CustomUser
-        fields = ("id", "username", "first_name", "last_name", "email")
+from profiles.models import Address, Skill, Resume, WorkExperience, Education, CertificateAndProject
 
 
 class AddressSerializer(serializers.ModelSerializer):
@@ -26,24 +9,6 @@ class AddressSerializer(serializers.ModelSerializer):
     class Meta:
         model = Address
         exclude = ("created_date", "updated_date")
-
-
-class GetContactInfoSerializer(serializers.ModelSerializer):
-    user_id = serializers.HiddenField(default='user_id')
-    address = AddressSerializer()
-
-    class Meta:
-        model = ContactInfo
-        exclude = ("created_date", "updated_date")
-
-
-class CreateContactInfoSerializer(serializers.ModelSerializer):
-    user_id = serializers.HiddenField(default='user_id')
-
-    class Meta:
-        model = ContactInfo
-        exclude = ("created_date", "updated_date")
-
 
 
 class SkillSerializer(serializers.ModelSerializer):
@@ -83,12 +48,4 @@ class CertificateAndProjectSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CertificateAndProject
-        exclude = ("created_date", "updated_date")
-
-
-class JobInfoSerializer(serializers.ModelSerializer):
-    user_id = serializers.HiddenField(default='user_id')
-
-    class Meta:
-        model = MyJobInfo
         exclude = ("created_date", "updated_date")

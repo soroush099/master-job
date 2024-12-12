@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.authtoken.models import Token
 
-from profiles.serializers import CustomUserSerializer
+from profiles.serializers.user_serializers import CustomUserSerializer
 
 
 class CreateUserView(APIView):

@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from profiles.models import CustomUser
-from profiles.serializers import CustomUserSerializer, PutUserSerializer
+from profiles.serializers.user_serializers import CustomUserSerializer, PutUserSerializer
 
 
 class ProfileView(APIView):

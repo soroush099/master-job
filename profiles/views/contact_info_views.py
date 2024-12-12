@@ -1,7 +1,7 @@
 from packages.custom_class_views import GetPostPutDeleteCustomView
 
 from profiles.models import ContactInfo
-from profiles.serializers import GetContactInfoSerializer, CreateContactInfoSerializer
+from profiles.serializers.contact_info_serializers import GetContactInfoSerializer, CreateContactInfoSerializer
 
 
 class ContactsInfoView(GetPostPutDeleteCustomView):
