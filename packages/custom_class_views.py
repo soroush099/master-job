@@ -7,6 +7,7 @@ from rest_framework import generics
 class GetPostPutDeleteAPIView(APIView):
     model = None
     serializer = None
+    post_put_serializer = serializer
     many_bool = True
 
     def get(self, request):
@@ -17,7 +18,7 @@ class GetPostPutDeleteAPIView(APIView):
 
     def post(self, request):
         user = request.user
-        serializer = self.serializer(data=request.data)
+        serializer = self.post_put_serializer(data=request.data)
         if serializer.is_valid():
             serializer.validated_data['user_id'] = user
             serializer.save()
@@ -28,7 +29,7 @@ class GetPostPutDeleteAPIView(APIView):
         user = request.user
         a_id = request.data.get('id')
         query = get_object_or_404(self.model, user_id=user.id, pk=a_id)
-        serializer = self.serializer(query, data=request.data)
+        serializer = self.post_put_serializer(query, data=request.data)
         if serializer.is_valid():
             serializer.save(user_id=user)
             return Response(serializer.data)

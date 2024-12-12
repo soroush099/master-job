@@ -1,7 +1,7 @@
 from django.urls import path
 
 
-from profiles.views.contact_info_views import ContactInfoView
+from profiles.views.contact_info_views import ContactsInfoView
 from profiles.views.my_job_info_views import MyJobInfoView
 from profiles.views.register_login_profile_views import CreateUserView, LoginProfileView
 from profiles.views.profile_view import ProfileView
@@ -27,6 +27,6 @@ urlpatterns = [
 
     path("address/", AddressView.as_view()),
 
-    path("contactinfo/", ContactInfoView.as_view()),
+    path("contactinfo/", ContactsInfoView.as_view()),
 
 ]
